@@ -63,7 +63,7 @@ imageArray.push(new Product('pet-sweep', 'image/pet-sweep.jpg'));
 imageArray.push(new Product('scissors', 'image/scissors.jpg'));
 imageArray.push(new Product('shark', 'image/shark.jpg'));
 imageArray.push(new Product('sweep', 'image/sweep.png'));
-imageArray.push(new Product('tauntan', 'image/tauntan.jpg'));
+imageArray.push(new Product('tauntaun', 'image/tauntaun.jpg'));
 imageArray.push(new Product('unicorn', 'image/unicorn.jpg'));
 imageArray.push(new Product('usb', 'image/usb.gif'));
 imageArray.push(new Product('water-can', 'image/water-can.jpg'));
