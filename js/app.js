@@ -4,6 +4,7 @@ var productArray = [];
 var remainingImagesArray = []
 var maxClicks = 25;
 var totalClicks = 0;
+var votesArray = []
 
 function Product(name, image) {
     this.name = name;
@@ -11,6 +12,29 @@ function Product(name, image) {
     this.isClicked = false;
     this.timesShown = 0;
     this.numberOfVotes = 0;
+}
+
+function createProductsIntoArray() {
+    productArray.push(new Product('bag', 'image/bag.jpg'));
+    productArray.push(new Product('banana', 'image/banana.jpg'));
+    productArray.push(new Product('bathroom', 'image/bathroom.jpg'));
+    productArray.push(new Product('boots', 'image/boots.jpg'));
+    productArray.push(new Product('breakfast', 'image/breakfast.jpg'));
+    productArray.push(new Product('bubblegum', 'image/bubblegum.jpg'));
+    productArray.push(new Product('chair', 'image/chair.jpg'));
+    productArray.push(new Product('cthulhu', 'image/cthulhu.jpg'));
+    productArray.push(new Product('dog-duck', 'image/dog-duck.jpg'));
+    productArray.push(new Product('dragon', 'image/dragon.jpg'));
+    productArray.push(new Product('pen', 'image/pen.jpg'));
+    productArray.push(new Product('pet-sweep', 'image/pet-sweep.jpg'));
+    productArray.push(new Product('scissors', 'image/scissors.jpg'));
+    productArray.push(new Product('shark', 'image/shark.jpg'));
+    productArray.push(new Product('sweep', 'image/sweep.png'));
+    productArray.push(new Product('tauntaun', 'image/tauntaun.jpg'));
+    productArray.push(new Product('unicorn', 'image/unicorn.jpg'));
+    productArray.push(new Product('usb', 'image/usb.gif'));
+    productArray.push(new Product('water-can', 'image/water-can.jpg'));
+    productArray.push(new Product('wine-glass', 'image/wine-glass.jpg'));
 }
 
 function displayRandomImage(imageElement) {
@@ -68,36 +92,19 @@ function getSummaryForProduct(index) {
 function createReport() {
     var listElement = document.getElementById("report");
 
-    for(var i = 0; i < productArray.length; i++) {
+    for (var i = 0; i < productArray.length; i++) {
         var resultElement = document.createElement("li");
         resultElement.textContent = getSummaryForProduct(i);
         listElement.appendChild(resultElement);
+        votesArray.push(productArray[i].numberOfVotes);
     }
+
+    chart.update();
 }
 
 // Actual execution
 
-// Create Products into array
-productArray.push(new Product('bag', 'image/bag.jpg'));
-productArray.push(new Product('banana', 'image/banana.jpg'));
-productArray.push(new Product('bathroom', 'image/bathroom.jpg'));
-productArray.push(new Product('boots', 'image/boots.jpg'));
-productArray.push(new Product('breakfast', 'image/breakfast.jpg'));
-productArray.push(new Product('bubblegum', 'image/bubblegum.jpg'));
-productArray.push(new Product('chair', 'image/chair.jpg'));
-productArray.push(new Product('cthulhu', 'image/cthulhu.jpg'));
-productArray.push(new Product('dog-duck', 'image/dog-duck.jpg'));
-productArray.push(new Product('dragon', 'image/dragon.jpg'));
-productArray.push(new Product('pen', 'image/pen.jpg'));
-productArray.push(new Product('pet-sweep', 'image/pet-sweep.jpg'));
-productArray.push(new Product('scissors', 'image/scissors.jpg'));
-productArray.push(new Product('shark', 'image/shark.jpg'));
-productArray.push(new Product('sweep', 'image/sweep.png'));
-productArray.push(new Product('tauntaun', 'image/tauntaun.jpg'));
-productArray.push(new Product('unicorn', 'image/unicorn.jpg'));
-productArray.push(new Product('usb', 'image/usb.gif'));
-productArray.push(new Product('water-can', 'image/water-can.jpg'));
-productArray.push(new Product('wine-glass', 'image/wine-glass.jpg'));
+createProductsIntoArray();
 
 remainingImagesArray = productArray.slice();
 
@@ -106,3 +113,80 @@ displayAllImages();
 // set event listener
 var productImagesElement = document.getElementById('product-images');
 productImagesElement.addEventListener('click', handleClick);
+
+var canvasElement = document.getElementById('myChart');
+var ctx = canvasElement.getContext('2d');
+
+var namesArray = []
+for(var i = 0; i < productArray.length; i++) {
+    namesArray.push(productArray[i].name);
+}
+
+var chartConfig = {
+    type: 'bar',
+    data: {
+        // These will display at the bottom
+        labels: namesArray,
+
+        datasets: [
+            {
+                label: '# of Votes',
+                data: votesArray,
+
+                backgroundColor: [
+                    'blue',
+                    'darkgray',
+                    'lightpurple',
+                    'lightblue',
+                    'navy',
+                    'blue',
+                    'darkgray',
+                    'lightpurple',
+                    'lightblue',
+                    'navy',
+                    'blue',
+                    'darkgray',
+                    'lightpurple',
+                    'lightblue',
+                    'navy',
+                    'blue',
+                    'darkgray',
+                    'lightpurple'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beingAtZero: true
+                }
+            }]
+        }
+    }
+}
+
+var chart = new Chart(ctx, chartConfig);
