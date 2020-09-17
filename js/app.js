@@ -12,6 +12,7 @@ function Product(name, image) {
     this.isClicked = false;
     this.timesShown = 0;
     this.numberOfVotes = 0;
+    this.previouslyshown = false;
 }
 
 function createProductsIntoArray() {
@@ -41,12 +42,36 @@ function displayRandomImage(imageElement) {
     if (remainingImagesArray.length === 0) {
         remainingImagesArray = [...productArray]
     }
-    var randomIndex = Math.floor(Math.random() * remainingImagesArray.length);
+    function random(){
+        return Math.floor(Math.random() * remainingImagesArray.length);
+    }
+    var randomIndex = random()
+    
+    if (remainingImagesArray.length < 3) {
+        productArray[randomIndex].previouslyshown = true;
+    }
+    if (remainingImagesArray.length === 15) {
+        for (var i = 0; i < productArray.length; i++) {
+            productArray[i].previouslyshown = false;
+        }
+    }
+    // console.log(productArray);
+    // console.log(remainingImagesArray);
+    if (productArray[randomIndex].previouslyshown === true){
+        console.log('original', randomIndex);
+        randomIndex = random();
+        console.log('After changes', randomIndex);
+    }
     productArray[randomIndex].timesShown += 1;
     imageElement.src = remainingImagesArray[randomIndex].filePathOfImage
     imageElement.name = remainingImagesArray[randomIndex].name
     remainingImagesArray.splice(randomIndex, 1);
 }
+
+// function displayRandomImage(someElement){
+
+
+// }
 
 function displayAllImages() {
     var firstImageElement = document.getElementById("image1");
