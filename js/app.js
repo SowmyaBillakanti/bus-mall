@@ -89,6 +89,9 @@ function handleClick(event) {
         if (productArray[i].name === elementName) {
             productArray[i].isClicked = true;
             productArray[i].numberOfVotes += 1;
+
+            putProductArrayIntoLocalStorage();
+            console.log(localStorage);
         }
     }
 
@@ -119,9 +122,24 @@ function createReport() {
     chart.update();
 }
 
+function putProductArrayIntoLocalStorage() {
+    var productArrayJsonString = JSON.stringify(productArray);
+    localStorage.setItem('product array', productArrayJsonString);
+}
+
+function retrieveProductsFromLocalStorage() {
+    var productArrayJsonStringFromStorage = localStorage.getItem('product array');
+    var productArrayFromStorage = JSON.parse(productArrayJsonStringFromStorage);
+    return productArrayFromStorage
+}
+
 // Actual execution
 
-createProductsIntoArray();
+if (localStorage.length == 0) {
+    createProductsIntoArray();
+} else {
+    productArray = retrieveProductsFromLocalStorage();
+}
 
 remainingImagesArray = productArray.slice();
 
