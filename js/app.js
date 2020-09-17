@@ -5,6 +5,7 @@ var remainingImagesArray = []
 var maxClicks = 25;
 var totalClicks = 0;
 var votesArray = []
+var viewCountArray = [];
 
 function Product(name, image) {
     this.name = name;
@@ -46,7 +47,7 @@ function displayRandomImage(imageElement) {
         return Math.floor(Math.random() * remainingImagesArray.length);
     }
     var randomIndex = random()
-    
+
     if (remainingImagesArray.length < 3) {
         productArray[randomIndex].previouslyshown = true;
     }
@@ -68,11 +69,6 @@ function displayRandomImage(imageElement) {
     remainingImagesArray.splice(randomIndex, 1);
 }
 
-// function displayRandomImage(someElement){
-
-
-// }
-
 function displayAllImages() {
     var firstImageElement = document.getElementById("image1");
     displayRandomImage(firstImageElement);
@@ -85,21 +81,16 @@ function displayAllImages() {
 }
 
 function handleClick(event) {
-    // which image got clicked? 
     totalClicks += 1;
-    // console.log(totalClicks);
 
-    // console.log(event.target);
     var elementName = event.target.getAttribute("name")
 
     for (var i = 0; i < productArray.length; i++) {
         if (productArray[i].name === elementName) {
             productArray[i].isClicked = true;
             productArray[i].numberOfVotes += 1;
-            // console.log(productArray[i]);
         }
     }
-    // console.log(productArray);
 
     if (totalClicks >= maxClicks) {
         productImagesElement.removeEventListener('click', handleClick);
@@ -122,6 +113,7 @@ function createReport() {
         resultElement.textContent = getSummaryForProduct(i);
         listElement.appendChild(resultElement);
         votesArray.push(productArray[i].numberOfVotes);
+        viewCountArray.push(productArray[i].timesShown);
     }
 
     chart.update();
@@ -177,37 +169,89 @@ var chartConfig = {
                     'blue',
                     'darkgray',
                     'lightpurple'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'number of times shown',
+                data: viewCountArray,
+                backgroundColor: [
+                    'blue',
+                    'darkgray',
+                    'lightpurple',
+                    'lightblue',
+                    'navy',
+                    'blue',
+                    'darkgray',
+                    'lightpurple',
+                    'lightblue',
+                    'navy',
+                    'blue',
+                    'darkgray',
+                    'lightpurple',
+                    'lightblue',
+                    'navy',
+                    'blue',
+                    'darkgray',
+                    'lightpurple'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+   },
     options: {
+        maintainAspectRatio: false,
+        responsive: false,
         scales: {
             yAxes: [{
                 ticks: {
-                    beingAtZero: true
+                    max: 20,
+                    min: 0,
+                    beingAtZero: true,
+                    stepSize: 1
                 }
             }]
         }
