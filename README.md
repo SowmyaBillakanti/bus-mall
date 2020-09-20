@@ -1,2 +1,3 @@
 # bus-mall
-Lab 11
+
+User Research website for shopping catalogs on public transportation
