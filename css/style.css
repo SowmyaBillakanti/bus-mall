@@ -1,0 +1,37 @@
+body header {
+    width: 100%;
+    height: 45px;
+    background-color:#777777;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+img {
+    width: 250px;
+    margin-right: 50px;
+    border: solid thick lightseagreen;
+}
+
+body {
+    background-color: rgb(219, 230, 231);
+    background-size: 1500px;
+} 
+
+body main {
+    height: calc(100% - 100px);
+}
+
+h1 {
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body footer {
+    height: 50px;
+    background-color: #777777;
+}
+
+canvas {
+    height: 300px !important;
+}
+  
